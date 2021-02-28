@@ -2,8 +2,8 @@ package org.organicdesign.dataOrient.chapter3;
 
 import org.organicdesign.fp.tuple.Tuple3;
 
-public class BookItem extends Tuple3<String, String, Boolean> {
-    public BookItem(String id, String rackId, Boolean isLent) {
+public class PBookItem extends Tuple3<String, String, Boolean> {
+    public PBookItem(String id, String rackId, Boolean isLent) {
         super(id, rackId, isLent);
     }
     public String id() { return _1; }

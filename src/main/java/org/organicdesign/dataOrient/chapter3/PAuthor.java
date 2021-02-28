@@ -3,8 +3,8 @@ package org.organicdesign.dataOrient.chapter3;
 import org.organicdesign.fp.collections.ImList;
 import org.organicdesign.fp.tuple.Tuple3;
 
-public class Author extends Tuple3<String,String, ImList<String>> {
-    Author(String id, String name, ImList<String> bookIsbns) {
+public class PAuthor extends Tuple3<String,String, ImList<String>> {
+    PAuthor(String id, String name, ImList<String> bookIsbns) {
         super(id, name, bookIsbns);
     }
 

@@ -7,9 +7,9 @@ import java.util.Map;
 
 import static org.organicdesign.fp.StaticImports.tup;
 
-class Chapter3A {
+class PChapter3 {
 
-    public static ImList<String> authorNames(Catalog catalogData, Book book) {
+    public static ImList<String> pAuthorNames(PCatalog catalogData, PBook book) {
         var authorIds = book.authorIds();
         return authorIds.map(authorId -> catalogData.authorsById()
                                                     .get(authorId)
@@ -17,36 +17,36 @@ class Chapter3A {
                         .toImList();
     }
 
-    public static Tuple3<String,String,ImList<String>> bookInfo(Catalog catalogData, Book book) {
-        return tup(book.title(), book.isbn(), authorNames(catalogData, book));
+    public static Tuple3<String,String,ImList<String>> pBookInfo(PCatalog catalogData, PBook book) {
+        return tup(book.title(), book.isbn(), pAuthorNames(catalogData, book));
     }
 
-    public static BookInfo bookInfo2(Catalog catalogData, Book book) {
-        return new BookInfo(book.title(), book.isbn(), authorNames(catalogData, book));
+    public static PBookInfo pBookInfo2(PCatalog catalogData, PBook book) {
+        return new PBookInfo(book.title(), book.isbn(), pAuthorNames(catalogData, book));
     }
 
-    public static ImList<Tuple3<String,String,ImList<String>>> searchBooksByTitle(Catalog catalogData, String query) {
+    public static ImList<Tuple3<String,String,ImList<String>>> pSearchBooksByTitle(PCatalog catalogData, String query) {
         var allBooks = catalogData.booksByIsbn();
         var matchingBooks = allBooks.filter(kv -> kv.getValue()
                                                     .title()
                                                     .contains(query));
-        return matchingBooks.map(kv -> bookInfo(catalogData, kv.getValue())).toImList();
+        return matchingBooks.map(kv -> pBookInfo(catalogData, kv.getValue())).toImList();
     }
 
-    public static ImList<BookInfo> searchBooksByTitle2(Catalog catalogData, String query) {
+    public static ImList<PBookInfo> pSearchBooksByTitle2(PCatalog catalogData, String query) {
         var allBooks = catalogData.booksByIsbn();
         var matchingBooks = allBooks.filter(kv -> kv.getValue()
                                                     .title()
                                                     .contains(query));
-        return matchingBooks.map(kv -> bookInfo2(catalogData, kv.getValue())).toImList();
+        return matchingBooks.map(kv -> pBookInfo2(catalogData, kv.getValue())).toImList();
     }
 
-    public static ImList<BookInfo> searchBooksByTitle3(Catalog catalogData, String query) {
+    public static ImList<PBookInfo> pSearchBooksByTitle3(PCatalog catalogData, String query) {
         return catalogData.booksByIsbn()
                           .map(Map.Entry::getValue)
                           .filter(book -> book
                                           .title()
                                           .contains(query))
-                          .map(book -> bookInfo2(catalogData, book)).toImList();
+                          .map(book -> pBookInfo2(catalogData, book)).toImList();
     }
 }
