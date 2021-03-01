@@ -2,10 +2,52 @@ package org.organicdesign.dataOrient.chapter3;
 
 import org.organicdesign.fp.collections.ImList;
 import org.organicdesign.fp.tuple.Tuple3;
+import org.organicdesign.fp.tuple.Tuple5;
+
 
 import java.util.Map;
 
 import static org.organicdesign.fp.StaticImports.tup;
+
+public class PBookItem extends Tuple3<String, String, Boolean> {
+    public PBookItem(String id, String rackId, Boolean isLent) {
+        super(id, rackId, isLent);
+    }
+    public String id() { return _1; }
+    public String rackId() { return _2; }
+    public Boolean isLent() { return _3; }
+}
+
+public class PBook extends Tuple5<String,String,Number, ImList<String>, ImList<PBookItem>> {
+    PBook(String isbn, String title, Number publicationYear, ImList<String> authorIds, ImList<PBookItem> bookItems) {
+        super(isbn, title, publicationYear, authorIds, bookItems);
+    }
+    public String isbn() { return _1; }
+    public String title() { return _2; }
+    public Number publicationYear() { return _3; }
+    public ImList<String> authorIds() { return _4; }
+    public ImList<PBookItem> bookItems() { return _5; }
+}
+
+public class PAuthor extends Tuple3<String,String, ImList<String>> {
+    PAuthor(String id, String name, ImList<String> bookIsbns) {
+        super(id, name, bookIsbns);
+    }
+
+    public String id() { return _1; }
+    public String name() { return _2; }
+    public ImList<String> bookIsbns() { return _3; }
+}
+
+public class PBookInfo extends Tuple3<String,String, ImList<String>> {
+    protected PBookInfo(String title, String isbn, ImList<String> authorNames) {
+        super(title, isbn, authorNames);
+    }
+    public String title() { return _1; }
+    public String isbn() { return _2; }
+    public ImList<String> authorNames() { return _3; }
+}
+
 
 class PChapter3 {
 
