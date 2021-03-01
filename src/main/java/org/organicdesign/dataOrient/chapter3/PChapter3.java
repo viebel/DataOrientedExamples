@@ -3,19 +3,25 @@ package org.organicdesign.dataOrient.chapter3;
 import org.organicdesign.fp.collections.ImList;
 import org.organicdesign.fp.tuple.Tuple3;
 import org.organicdesign.fp.tuple.Tuple5;
-
+import com.google.gson.annotations.Expose;
 
 import java.util.Map;
 
 import static org.organicdesign.fp.StaticImports.tup;
 
 public class PBookItem extends Tuple3<String, String, Boolean> {
-    public PBookItem(String id, String rackId, Boolean isLent) {
-        super(id, rackId, isLent);
+    public PBookItem(String _id, String _rackId, Boolean _isLent) {
+        super(_id, _rackId, _isLent);
+        id = _id;
+        rackId = _rackId;
+        isLent = _isLent;
     }
-    public String id() { return _1; }
-    public String rackId() { return _2; }
-    public Boolean isLent() { return _3; }
+    @Expose
+    public String id;
+    @Expose
+    public String rackId;
+    @Expose
+    public Boolean isLent;
 }
 
 public class PBook extends Tuple5<String,String,Number, ImList<String>, ImList<PBookItem>> {
