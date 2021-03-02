@@ -18,10 +18,11 @@ class PMChapter3 {
     }
 
     public static ImList<ImMap> pSearchBooksByTitle(ImMap catalogData, String query) {
-        var allBooksMap = (ImMap<String,ImMap>)catalogData.get("booksByIsbn");
-        var allBooks = allBooksMap.values().toImList();
-        return allBooks.filter(book -> ((String)book.get("title"))
-                                                    .contains(query)).map(book -> pBookInfo(catalogData, book)).toImList();
+        return ((ImMap<String,ImMap>)catalogData.get("booksByIsbn"))
+            .values()
+            .filter(book -> ((String)book.get("title")).contains(query))
+            .map(book -> pBookInfo(catalogData, book))
+            .toImList();
     }
     
     public static String pSearchBooksByTitleJSON(ImMap libraryData, String query) {
