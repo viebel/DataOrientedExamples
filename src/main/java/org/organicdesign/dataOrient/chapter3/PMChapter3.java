@@ -23,4 +23,9 @@ class PMChapter3 {
         return allBooks.filter(book -> ((String)book.get("title"))
                                                     .contains(query)).map(book -> pBookInfo(catalogData, book)).toImList();
     }
+    
+    public static String pSearchBooksByTitleJSON(ImMap libraryData, String query) {
+        var books = pSearchBooksByTitle((ImMap)libraryData.get("catalog"), query);
+        return gson.toJson(books);
+    }
 }
