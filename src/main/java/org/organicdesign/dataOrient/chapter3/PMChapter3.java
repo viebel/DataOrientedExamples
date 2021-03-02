@@ -3,9 +3,6 @@ package org.organicdesign.dataOrient.chapter3;
 import org.organicdesign.fp.collections.ImList;
 import org.organicdesign.fp.collections.ImMap;
 
-
-import java.util.Map;
-
 class PMChapter3 {
     public static ImList<String> pAuthorNames(ImMap catalogData,
                                               ImMap book) { 
@@ -14,18 +11,16 @@ class PMChapter3 {
         return authorIds.map(authorId -> (String)authorByIds.get(authorId).get("name")).toImList();
     }
 
-    public static ImMap pBookInfo(ImMap catalogData, Map book) {
+    public static ImMap pBookInfo(ImMap catalogData, ImMap book) {
         return map(tup("title", book.get("title")),
                    tup("isbn", book.get("isbn")),
                    tup("authorNames", pAuthorNames(catalogData, book)));
     }
 
-
-    public static ImList<ImMap> pSearchBooksByTitle(ImMap<String,ImMap<String,ImMap<String,Object>>> catalogData, String query) {
-        var allBooks = catalogData.get("booksByIsbn");
-        var matchingBooks = allBooks.filter(kv -> ((String)kv.getValue()
-                                                    .get("title"))
-                                                    .contains(query));
-        return matchingBooks.map(kv -> pBookInfo(catalogData, kv.getValue())).toImList();
+    public static ImList<ImMap> pSearchBooksByTitle(ImMap catalogData, String query) {
+        var allBooksMap = (ImMap<String,ImMap>)catalogData.get("booksByIsbn");
+        var allBooks = allBooksMap.values().toImList();
+        return allBooks.filter(book -> ((String)book.get("title"))
+                                                    .contains(query)).map(book -> pBookInfo(catalogData, book)).toImList();
     }
 }
