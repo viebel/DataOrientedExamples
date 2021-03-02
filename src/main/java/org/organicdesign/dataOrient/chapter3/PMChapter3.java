@@ -4,13 +4,9 @@ import org.organicdesign.fp.collections.ImList;
 
 import java.util.Map;
 
-
-
-
-
 class PMChapter3 {
 
-    public static ImList<String> pAuthorNames(ImMap<String,ImMap<String,ImMap<String,Object>>> catalogData, Map book) {
+    public static ImList<String> pAuthorNames(ImMap<String,ImMap<String,ImMap<String,Object>>> catalogData, Map book) { 
         var authorIds = (ImList<String>)book.get("authorIds");
         return authorIds.map(authorId -> (String)catalogData.get("authorsById")
                                                     .get(authorId)
@@ -18,16 +14,15 @@ class PMChapter3 {
           .toImList();
     }
 
-    public static Map pBookInfo(PCatalog catalogData, PBook book) {
-        return tup(book.title(), book.isbn(), pAuthorNames(catalogData, book));
+    public static Map pBookInfo(ImMap<String,ImMap<String,ImMap<String,Object>>> catalogData, Map book) {
+        return map(tup("title", book.get("title")),
+                   tup("isbn", book.get("isbn")),
+                   tup("authorNames", pAuthorNames(catalogData, book)));
     }
 
-    public static PBookInfo pBookInfo2(PCatalog catalogData, PBook book) {
-        return new PBookInfo(book.title(), book.isbn(), pAuthorNames(catalogData, book));
-    }
 
-    public static ImList<Tuple3<String,String,ImList<String>>> pSearchBooksByTitle(PCatalog catalogData, String query) {
-        var allBooks = catalogData.booksByIsbn();
+    public static ImList<Tuple3<String,String,ImList<String>>> pSearchBooksByTitle(ImMap<String,ImMap<String,ImMap<String,Object>>> catalogData, String query) {
+        var allBooks = catalogData.get("booksByIsbn");
         var matchingBooks = allBooks.filter(kv -> kv.getValue()
                                                     .title()
                                                     .contains(query));
