@@ -2,6 +2,7 @@ package org.organicdesign.dataOrient.chapter3;
 
 import org.organicdesign.fp.collections.ImList;
 import org.organicdesign.fp.collections.ImMap;
+import com.google.gson.Gson;
 
 class PMChapter3 {
     public static ImList<String> pAuthorNames(ImMap catalogData,
@@ -27,6 +28,6 @@ class PMChapter3 {
     
     public static String pSearchBooksByTitleJSON(ImMap libraryData, String query) {
         var books = pSearchBooksByTitle((ImMap)libraryData.get("catalog"), query);
-        return gson.toJson(books);
+        return new Gson().toJson(books);
     }
 }
