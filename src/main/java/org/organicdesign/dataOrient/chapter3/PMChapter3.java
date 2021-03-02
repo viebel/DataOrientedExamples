@@ -1,4 +1,4 @@
-package org.organicdesign.dataOrient.chapter3;
+package org.organicdesign.dataOrient.pmchapter3;
 
 import org.organicdesign.fp.collections.ImList;
 import org.organicdesign.fp.collections.ImMap;
@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 
 class PMChapter3 {
     public static ImList<String> pAuthorNames(ImMap catalogData,
-                                              ImMap book) { 
+                                              ImMap book) {
         var authorIds = (ImList<String>)book.get("authorIds");
         var authorByIds = (ImMap<String,ImMap>)catalogData.get("authorsById");
         return authorIds.map(authorId -> (String)authorByIds.get(authorId).get("name")).toImList();
@@ -25,7 +25,7 @@ class PMChapter3 {
             .map(book -> pBookInfo(catalogData, book))
             .toImList();
     }
-    
+
     public static String pSearchBooksByTitleJSON(ImMap libraryData, String query) {
         var books = pSearchBooksByTitle((ImMap)libraryData.get("catalog"), query);
         return new Gson().toJson(books);
