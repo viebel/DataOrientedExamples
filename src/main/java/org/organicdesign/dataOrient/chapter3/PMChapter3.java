@@ -7,14 +7,11 @@ import org.organicdesign.fp.collections.ImMap;
 import java.util.Map;
 
 class PMChapter3 {
-
-    public static ImList<String> pAuthorNames(ImMap<String,ImMap<String,ImMap<String,Object>>> catalogData,
+    public static ImList<String> pAuthorNames(ImMap catalogData,
                                               ImMap book) { 
         var authorIds = (ImList<String>)book.get("authorIds");
-        return authorIds.map(authorId -> (String)catalogData.get("authorsById")
-                                                    .get(authorId)
-                                                    .get("name"))
-          .toImList();
+        var authorByIds = (ImMap<String,ImMap>)catalogData.get("authorsById");
+        return authorIds.map(authorId -> (String)authorByIds.get(authorId).get("name")).toImList();
     }
 
     public static Map pBookInfo(ImMap<String,ImMap<String,ImMap<String,Object>>> catalogData, Map book) {
